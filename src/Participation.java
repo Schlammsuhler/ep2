@@ -11,6 +11,9 @@ public class Participation {
     
     // TODO: The object variables 'race', 'racer' and 'bibnumber'
     //  (Startnummer) shall be declared here.
+    private String race;
+    private String racer;
+    private int bibnumber;
 
     // TODO: A constructor for this class shall be defined here.
     // A new object constructed by
@@ -19,24 +22,45 @@ public class Participation {
     //
     // shall specify the name of the race, the racer, and the bibnumber.
 
+    public Participation(String race, String racer, int bibnumber) {
+        this.race = race;
+        this.racer = racer;
+        this.bibnumber = bibnumber;
+    }
+
+    // This method is only for testing.
+    // Alternatively, you can put the tests in additional classes.
+    public static void main(String[] args) {
+        Participation test = new Participation("Lienz 2011 Ladies' Slalom", "Mikaela Shiffrin", 40);
+        System.out.println(test.getRace());
+        System.out.println(test.getRacer());
+        System.out.println(test.getBibnumber());
+        test.print();
+    }
 
     // Returns the 'race' of this participation.
     public String getRace() {
         // TODO: Implement this method
-        return "";
+        return race;
     }
 
     // Returns the 'racer' of this participation.
     public String getRacer() {
         // TODO: Implement this method
-        return "";
+        return racer;
     }
 
     // Returns the 'bibnumber' of this participation.
     public int getBibnumber() {
         // TODO: Implement this method
-        return 0;
+        return bibnumber;
     }
+
+    // Question:
+
+    // Should there also be setter methods for the object variables?
+    // Why or why not?
+//    NO, if it was incorrect when creating the Object you should depose of it and create a new one with correct parameters.
 
     // Output the following (without newline at the start or end) for
     // the participation created by the constructor call above:
@@ -44,18 +68,7 @@ public class Participation {
     // 40 Mikaela Shiffrin (Lienz 2011 Ladies' Slalom)
     //
     public void print() {
-        // TODO: Implement this method
-    }
-
-    // Question:
-    
-    // Should there also be setter methods for the object variables?
-    // Why or why not?
-
-    // This method is only for testing.
-    // Alternatively, you can put the tests in additional classes.
-    public static void main(String[] args) {
-        // TODO: write your own test cases here if necessary.
+        System.out.println(bibnumber + " " + racer + " (" + race + ")");
     }
 
 }
