@@ -12,20 +12,48 @@ public class Parse {
     // parenthesized strings are "", "()<>", "(([(<>)])){()}<{}>".
     // By contrast, "(", ")", "(a)", "(]" are not properly
     // parenthesized.
-    public static boolean parseRec(String s)
-    {
-        // TODO: implement this method using recursion
-        return false;
+    public static boolean parseRec(String s) {
+        if (s.isEmpty()) {
+            return true;
+        }
+        String matchParenthesis = "(\\(\\))|(\\[])|(\\{})|(<>)";
+        String replaced = s.replaceAll(matchParenthesis, "");
+        return !replaced.equals(s) && parseRec(replaced);
     }
 
     // Assignment 2.2 (partly also in CharStack.java)
 
     // returns true, if s is a properly parenthesized string,
     // otherwise false.  See parseRec for details.
-    public static boolean parseStack(String s)
-    {
-        // TODO: implement this method using class 'CharStack', and no recursion
-        return false;
+    public static boolean parseStack(String s) {
+        CharStack stack = new CharStack();
+        Character c;
+
+        while (!s.isEmpty()) {
+//            System.out.println(stack + "*" + s);
+            if (stack.isEmpty()) {
+                stack.push(s.charAt(0));
+            } else {
+                c = stack.pop();
+                if (s.charAt(0) != matchParenthesis(c)) {
+                    stack.push(c);
+                    stack.push(s.charAt(0));
+                }
+            }
+            s = s.substring(1);
+        }
+
+        return stack.isEmpty();
+    }
+
+    private static Character matchParenthesis (Character c) {
+        switch (c) {
+            case '(': return ')';
+            case '[': return ']';
+            case '{': return '}';
+            case '<': return '>';
+        }
+        return 0;
     }
 
     // Fragen:
@@ -45,6 +73,22 @@ public class Parse {
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
     public static void main(String[] args) {
-        // TODO: write your own test cases here if necessary.
+        System.out.println(Parse.parseRec(""));
+        System.out.println(Parse.parseRec("()<>"));
+        System.out.println(Parse.parseRec("(([(<>)])){()}<{}>"));
+        System.out.println(Parse.parseRec("("));
+        System.out.println(Parse.parseRec(")"));
+        System.out.println(Parse.parseRec("(a)"));
+        System.out.println(Parse.parseRec("(]"));
+
+        System.out.println("----------------------------");
+
+        System.out.println(Parse.parseStack(""));
+        System.out.println(Parse.parseStack("()<>"));
+        System.out.println(Parse.parseStack("(([(<>)])){()}<{}>"));
+        System.out.println(Parse.parseStack("("));
+        System.out.println(Parse.parseStack(")"));
+        System.out.println(Parse.parseStack("(a)"));
+        System.out.println(Parse.parseStack("(]"));
     }
 }

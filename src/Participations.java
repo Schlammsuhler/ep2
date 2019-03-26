@@ -9,23 +9,34 @@ public class Participations {
     // Assignment 2.3
 
     // Introduce (private) object variables as needed.
+    private Participation[] participations;
+    private int current;
 
     // Creates an empty object of this class with space for n entries.
     public Participations(int n) {
-        // TODO: implement this constructor
+        participations = new Participation[n];
+        current = 0;
     }
 
     // Adds p to 'this'.
     public void add(Participation p) {
-        // TODO: Implement this method without using methods from
-        //  other classes
+        if (current < participations.length) {
+            participations[current++] = p;
+        } else {
+            System.out.println("Cant add any more participations.");
+        }
     }
     
     // Print the filled entries in the order of insertion; each
     // participation is printed in the same format as produced by
     // print() in Participation, followed by a newline.
     public void print() {
-        // TODO: Implement this method
+        for (Participation p: participations) {
+            if (p != null) {
+                p.print();
+                System.out.println();
+            }
+        }
     }
 
     // Frage:
@@ -41,8 +52,11 @@ public class Participations {
     // earliest) in 'this' where the 'racer' equals 'r'.  If there is
     // no such participation, return null.
     public Participation lookupRacer(String r) {
-        // TODO: Implement this method without using methods from
-        //  other classes
+        for (Participation p: participations) {
+            if (p.getRacer() == r) {
+                return p;
+            }
+        }
         return null;
     }
 
@@ -65,7 +79,22 @@ public class Participations {
     // l; add will not be used on objects produced with this
     // constructor.
     public Participations(Participations l, String r1, String r2) {
-        // TODO: Implement this constructor
+        Participation[] all = l.getParticipations();
+        participations = new Participation[l.getSize()];
+        current = 0;
+        for (Participation p: all) {
+            if (p.getRace().compareTo(r1) >= 0 && p.getRace().compareTo(r2) <= 0) {
+                participations[current++] = p;
+            }
+        }
+    }
+
+    private int getSize() {
+        return current;
+    }
+
+    private Participation[] getParticipations () {
+        return participations.clone();
     }
 
     // Frage:
@@ -78,6 +107,18 @@ public class Participations {
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
     public static void main(String[] args) {
-        // TODO: write your own test cases here if necessary.
+        Participations p = new Participations(4);
+        p.add(new Participation("race1", "Herbert", 1));
+        p.add(new Participation("race2", "Franz", 2));
+        p.add(new Participation("race2", "Herbert", 3));
+        p.add(new Participation("race4", "Franz", 4));
+        p.print();
+        System.out.println("----");
+        p.lookupRacer("Herbert").print();
+        System.out.println();
+        p.lookupRacer("Franz").print();
+        System.out.println("\n----");
+        Participations ps = new Participations(p, "race2", "race5");
+        ps.print();
     }
 }

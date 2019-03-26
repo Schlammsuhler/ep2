@@ -8,14 +8,11 @@ This class is part of software for ski racing administration.
 public class Participation {
 
     // Assignment 1.1:
-    
-    // TODO: The object variables 'race', 'racer' and 'bibnumber'
-    //  (Startnummer) shall be declared here.
+
     private String race;
     private String racer;
     private int bibnumber;
 
-    // TODO: A constructor for this class shall be defined here.
     // A new object constructed by
     //
     //   new Participation("Lienz 2011 Ladies' Slalom", "Mikaela Shiffrin", 40)
@@ -40,19 +37,16 @@ public class Participation {
 
     // Returns the 'race' of this participation.
     public String getRace() {
-        // TODO: Implement this method
         return race;
     }
 
     // Returns the 'racer' of this participation.
     public String getRacer() {
-        // TODO: Implement this method
         return racer;
     }
 
     // Returns the 'bibnumber' of this participation.
     public int getBibnumber() {
-        // TODO: Implement this method
         return bibnumber;
     }
 
@@ -70,5 +64,4 @@ public class Participation {
     public void print() {
         System.out.print(bibnumber + " " + racer + " (" + race + ")");
     }
-
 }

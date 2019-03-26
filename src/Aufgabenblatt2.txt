@@ -1,5 +1,5 @@
 Allgemein: Vorgegebene Programmteile dürfen nur an den Stellen
-verändert werden, die mit TODO markiert sind.
+verändert werden, die mit to doto markiert sind.
 Zusätzliche Klassen, Interfaces, Methoden und Variablen dürfen
 aber eingefügt werden.
 
