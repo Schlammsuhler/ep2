@@ -7,28 +7,27 @@ public class CharStack1 {
     // Assignment 3.4 (partly also in Aufgabenblatt3.txt)
 
     // introduce (private) object variables as needed
-
+    private CharNode top;
     // Create an empty stack
     public CharStack1() {
-        // TODO: implement this constructor
     }
 
     // Push c on 'this'.  
     public void push(char c) {
-        // TODO: Implement this method
+        top = new CharNode(c, top);
     }
 
     // Pop the most recent character that was pushed, but has not been
     // popped yet
     public char pop() {
-        // TODO: Implement this method
-        return ' ';
+        Character c = top.value;
+        top = top.next;
+        return c;
     }
 
     // returns true if all characters pushed on 'this' have been popped.
     public boolean isEmpty() {
-        // TODO: Implement this method
-        return false;
+        return top == null;
     }
 
     // Frage:
@@ -40,6 +39,27 @@ public class CharStack1 {
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
     public static void main(String[] args) {
-        // TODO: write your own test cases here if necessary.
+        CharStack1 stack = new CharStack1();
+        System.out.println(stack.isEmpty());
+        stack.push('a');
+        stack.push('b');
+        stack.push('c');
+        System.out.println(stack.isEmpty());
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
+        stack.push('d');
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
+        System.out.println(stack.isEmpty());
+    }
+
+    class CharNode {
+        Character value;
+        CharNode next;
+
+        CharNode (Character c, CharNode next) {
+            value = c;
+            this.next = next;
+        }
     }
 }

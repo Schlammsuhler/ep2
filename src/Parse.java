@@ -69,6 +69,29 @@ public class Parse {
     // nicht so tragisch, solange die Begründung erkennen läßt, dass
     // sie sich ernsthaft damit auseinendergesetzt haben.
 
+    // returns true, if s is a properly parenthesized string,
+    // otherwise false.  See parseRec for details.
+    public static boolean parseStack1(String s) {
+        CharStack1 stack = new CharStack1();
+        char c;
+
+        while (!s.isEmpty()) {
+//            System.out.println(stack + "*" + s);
+            if (stack.isEmpty()) {
+                stack.push(s.charAt(0));
+            } else {
+                c = stack.pop();
+                if (s.charAt(0) != matchParenthesis(c)) {
+                    stack.push(c);
+                    stack.push(s.charAt(0));
+                }
+            }
+            s = s.substring(1);
+        }
+
+        return stack.isEmpty();
+    }
+
 
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
@@ -90,5 +113,15 @@ public class Parse {
         System.out.println(Parse.parseStack(")"));
         System.out.println(Parse.parseStack("(a)"));
         System.out.println(Parse.parseStack("(]"));
+
+        System.out.println("----------------------------");
+
+        System.out.println(Parse.parseStack1(""));
+        System.out.println(Parse.parseStack1("()<>"));
+        System.out.println(Parse.parseStack1("(([(<>)])){()}<{}>"));
+        System.out.println(Parse.parseStack1("("));
+        System.out.println(Parse.parseStack1(")"));
+        System.out.println(Parse.parseStack1("(a)"));
+        System.out.println(Parse.parseStack1("(]"));
     }
 }

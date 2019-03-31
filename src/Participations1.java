@@ -12,34 +12,53 @@ public class Participations1 {
     // Assignment 3.1
 
     // Introduce (private) object variables and classes as needed.
-
+    private MyParticipationNode first;
     // Creates an empty object of this class
     public Participations1(int n) {
-        // TODO: implement this constructor
+        this();
     }
 
     // Creates an empty object of this class
     public Participations1() {
-        // TODO: implement this constructor
     }
 
     // Adds p to 'this'.
     public void add(Participation p) {
-        // TODO: Implement this method
+        MyParticipationNode newNode = new MyParticipationNode(p);
+        if (first == null) {
+            first = newNode;
+        } else {
+            MyParticipationNode last = first;
+            while (last.next != null) {
+                last = last.next;
+            }
+            last.next = newNode;
+        }
     }
     
     // Print the entries in the order of insertion; each participation
     // is printed in the same format as produced by print() in
     // Participation, followed by a newline.
     public void print() {
-        // TODO: Implement this method
+        MyParticipationNode node = first;
+        while (node != null) {
+            node.part.print();
+            System.out.println();
+            node = node.next;
+        }
     }
 
     // Returns the first participation (the one that was inserted
     // earliest) in 'this' where the 'racer' equals 'r'.  If there is
     // no such participation, return null.
     public Participation lookupRacer(String r) {
-        // TODO: Implement this method
+        MyParticipationNode node = first;
+        while (node != null) {
+            if (node.part.getRacer().equals(r)) {
+                return node.part;
+            }
+            node = node.next;
+        }
         return null;
     }
 
@@ -69,8 +88,11 @@ public class Participations1 {
     // earliest) in 'this'.  If there is no such participation, return
     // null.
     public Participation first() {
-        // TODO: Implement this method
-        return null;
+        if (first != null) {
+            return first.part;
+        } else {
+            return null;
+        }
     }
 
 
@@ -80,12 +102,48 @@ public class Participations1 {
     // each participation is printed in the same format as produced by
     // print() in Participation, followed by a newline.
     void print(int x) {
-        // TODO: Implement this method
+        MyParticipationNode node = first;
+        while (node != null) {
+            if (node.part.getBibnumber() <= x) {
+                System.out.println(node.part);
+            }
+            node = node.next;
+        }
     }
 
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
     public static void main(String[] args) {
-        // TODO: write your own test cases here if necessary.
+        Participations1 p = new Participations1(4);
+        System.out.println("FirstNull: " + p.first());
+        p.add(new Participation("race1", "Herbert", 1));
+        p.add(new Participation("race2", "Franz", 2));
+        p.add(new Participation("race2", "Herbert", 3));
+        p.add(new Participation("race4", "Franz", 4));
+        System.out.println("First: " + p.first());
+        p.print();
+        System.out.println("--lookup--");
+        System.out.println(p.lookupRacer("Herbert"));
+        System.out.println(p.lookupRacer("Franz"));
+
+        System.out.println("--bibno_0--");
+        p.print(0);
+        System.out.println("--bibno_2--");
+        p.print(2);
+        System.out.println("--bibno_3--");
+        p.print(3);
+    }
+
+    private class MyParticipationNode {
+        Participation part;
+        MyParticipationNode next;
+
+        MyParticipationNode (Participation p) {
+            this.part = p;
+        }
     }
 }
+
+
+
+

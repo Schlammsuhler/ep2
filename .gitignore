@@ -10,6 +10,8 @@ libs/
 tmp/
 node_modules/
 
+src/test
+
 # Compiled class Files #
 *.class
 

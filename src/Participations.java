@@ -53,7 +53,7 @@ public class Participations {
     // no such participation, return null.
     public Participation lookupRacer(String r) {
         for (Participation p: participations) {
-            if (p.getRacer() == r) {
+            if (p.getRacer().equals(r)) {
                 return p;
             }
         }

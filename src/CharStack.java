@@ -60,6 +60,8 @@ public class CharStack {
         System.out.println(stack.isEmpty());
         System.out.println(stack.pop());
         System.out.println(stack.pop());
+        stack.push('d');
+        System.out.println(stack.pop());
         System.out.println(stack.pop());
         System.out.println(stack.isEmpty());
     }
