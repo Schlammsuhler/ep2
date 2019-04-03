@@ -83,11 +83,24 @@ public class Participations {
         participations = new Participation[l.getSize()];
         current = 0;
         for (Participation p: all) {
-            if (p.getRace().compareTo(r1) >= 0 && p.getRace().compareTo(r2) <= 0) {
+            if (p != null && p.getRace().compareTo(r1) >= 0 && p.getRace().compareTo(r2) <= 0) {
                 participations[current++] = p;
             }
         }
     }
+
+    public Participations(Participations l, int x, String y) {
+        Participation[] all = l.getParticipations();
+        participations = new Participation[l.getSize()];
+        current = 0;
+        for (Participation p: all) {
+            if (p != null && p.getBibnumber() > x && p.getRace().compareTo(y) > 0) {
+                participations[current++] = p;
+            }
+        }
+    }
+
+
 
     private int getSize() {
         return current;
@@ -107,11 +120,12 @@ public class Participations {
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
     public static void main(String[] args) {
-        Participations p = new Participations(4);
+        Participations p = new Participations(10);
         p.add(new Participation("race1", "Herbert", 1));
         p.add(new Participation("race2", "Franz", 2));
         p.add(new Participation("race2", "Herbert", 3));
         p.add(new Participation("race4", "Franz", 4));
+        p.add(new Participation("race5", "Franz", 6));
         p.print();
         System.out.println("----");
         p.lookupRacer("Herbert").print();
@@ -120,5 +134,8 @@ public class Participations {
         System.out.println("\n----");
         Participations ps = new Participations(p, "race2", "race5");
         ps.print();
+        System.out.println("\n----");
+        Participations adHoc = new Participations(p, 2, "race2");
+        adHoc.print();
     }
 }
