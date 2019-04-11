@@ -14,6 +14,12 @@ Sie haben folgendes Feedback bekommen: Beim Stringvergleich aufpassen! s.equals 
 Sie haben dann in der ersten Übung 5 von 5 Punkte bekommen.
 Sie haben bei der Ad-hoc Aufgabe 4 von 4 Punkte bekommen.
 
+-- Übung 3
+In der Vorbeurteilung wurde Ihre Abgabe mit ++++ kategorisiert.
 
-Sie haben insgesamt 18 Punkte.
+Sie haben dann in der ersten Übung 5 von 5 Punkte bekommen.
+Sie haben bei der Ad-hoc Aufgabe 4 von 4 Punkte bekommen.
+
+
+Sie haben insgesamt 27 Punkte.
 
