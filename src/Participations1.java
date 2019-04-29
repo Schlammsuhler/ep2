@@ -9,6 +9,15 @@ assignment.  It is recommended to solve Assignment 3.1, 3.2 and 3.3
 
 public class Participations1 {
 
+    private class MyParticipationNode {
+        Participation part;
+        MyParticipationNode next;
+
+        MyParticipationNode (Participation p) {
+            this.part = p;
+        }
+    }
+
     // Assignment 3.1
 
     // Introduce (private) object variables and classes as needed.
@@ -34,6 +43,17 @@ public class Participations1 {
             }
             last.next = newNode;
         }
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        MyParticipationNode node = first;
+        while (node != null) {
+            s += node.part + "\n";
+            node = node.next;
+        }
+        return s;
     }
     
     // Print the entries in the order of insertion; each participation
@@ -111,14 +131,67 @@ public class Participations1 {
         }
     }
 
+    // Insert p immediately after the last entry in 'this' where race is equal to r.
+    // If there is no such entry, insert p before the first entry.
+    public void addAfter(String r, Participation p) {
+        MyParticipationNode newNode = new MyParticipationNode(p);
+        MyParticipationNode node = first;
+        while (node != null && !node.part.getRace().equals(r)) {
+            node = node.next;
+        }
+        if (node == null) {
+            newNode.next = first;
+            first = newNode;
+        } else {
+            newNode.next = node.next;
+            node.next = newNode;
+        }
+    }
+
+    // Insert p immediately before the first entry in 'this' where race is equal to r.
+    // If there is no such entry, insert p after the last entry.
+    public void addBefore(String r, Participation p) {
+        MyParticipationNode newNode = new MyParticipationNode(p);
+        MyParticipationNode node = first;
+        MyParticipationNode before = null;
+        while (node != null && !node.part.getRace().equals(r)) {
+            before = node;
+            node = node.next;
+        }
+        newNode.next = node;
+        if (before == null) {
+            first = newNode;
+        } else {
+            before.next = newNode;
+        }
+    }
+
+    // Delete every entry in 'this' where race is equal to r.
+    public void remove(String r) {
+        MyParticipationNode node = first;
+        MyParticipationNode before = null;
+        while (node != null) {
+            if (node.part.getRace().equals(r)) {
+                if (before == null) {
+                    first = node.next;
+                } else {
+                    before.next = node.next;
+                }
+            }
+            before = node;
+            node = node.next;
+        }
+    }
+
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
     public static void main(String[] args) {
         Participations1 p = new Participations1(4);
         System.out.println("FirstNull: " + p.first());
-        p.add(new Participation("race1", "Herbert", 1));
-        p.add(new Participation("race2", "Franz", 2));
-        p.add(new Participation("race2", "Herbert", 3));
+        p.addBefore("race1", new Participation("race1", "Herbert", 1));
+        p.addBefore("race1", new Participation("race2", "Herbert", 1));
+        p.addBefore("race4", new Participation("race2", "Franz", 2));
+        p.addAfter("race4", new Participation("race3", "Herbert", 3));
         p.add(new Participation("race4", "Franz", 4));
         System.out.println("First: " + p.first());
         p.print();
@@ -132,15 +205,6 @@ public class Participations1 {
         p.print(2);
         System.out.println("--bibno_3--");
         p.print(3);
-    }
-
-    private class MyParticipationNode {
-        Participation part;
-        MyParticipationNode next;
-
-        MyParticipationNode (Participation p) {
-            this.part = p;
-        }
     }
 }
 

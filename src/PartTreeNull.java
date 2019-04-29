@@ -10,8 +10,6 @@ public class PartTreeNull implements PartTreeNodable {
     // or not; instead, call the appropriate method implementation with
     // dynamic binding.
 
-    // TODO: define object variables, constructors and methods as needed
-
     // 'NIL' is the only object of type 'PartTreeNull'.
     // Appropriate visibility and use of the constructor of 'PartTreeNull'
     // ensure this property.
@@ -19,21 +17,22 @@ public class PartTreeNull implements PartTreeNodable {
 
     @Override
     public PartTreeNodable add(Participation p) {
-        // TODO: Implement this method
-        return NIL;
+        return new PartTreeBinary(p);
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 
     @Override
     public void print() {
-        // TODO: Implement this method
     }
 
     @Override
     public Participation lookupRacer(String r) {
-        // TODO: Implement this method
         return null;
     }
-
 
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.

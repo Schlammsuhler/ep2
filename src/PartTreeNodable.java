@@ -12,8 +12,6 @@ public interface PartTreeNodable {
     // or '? :' to check whether a node is empty or not; instead, they
     // call the appropriate method implementation with dynamic binding.
 
-    // TODO: introduce (public) methods if needed
-
     // Returns a binary search tree that contains 'p' in addition
     // to the participations of 'this'. Participations of the same
     // racer are stored in a 'Participations1' object.

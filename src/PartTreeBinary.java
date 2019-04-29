@@ -10,25 +10,46 @@ public class PartTreeBinary implements PartTreeNodable {
     // empty or not; instead, call the appropriate method
     // implementation with dynamic binding.
 
-    // TODO: define object variables, constructors and methods as needed
+    Participations1 parts = new Participations1();
+    String racer;
+    PartTreeNodable[] branches = {PartTreeNull.NIL, PartTreeNull.NIL};
+
+    PartTreeBinary (Participation p) {
+        parts.add(p);
+        racer = p.getRacer();
+    }
 
     @Override
     public PartTreeNodable add(Participation p) {
-        // TODO: Implement this method
-        return PartTreeNull.NIL;
+        if (racer.equals(p.getRacer())) {
+            parts.add(p);
+        } else {
+            int direction = p.getRacer().compareTo(racer) < 0 ? 0 : 1;
+            branches[direction] = branches[direction].add(p);
+        }
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "" + branches[0] + parts + branches[1];
     }
 
     @Override
     public void print() {
-        // TODO: Implement this method
+        branches[0].print();
+        parts.print();
+        branches[1].print();
     }
 
     @Override
     public Participation lookupRacer(String r) {
-        // TODO: Implement this method
-        return null;
+        if (racer.equals(r)) {
+            return parts.first();
+        }
+        int direction = r.compareTo(racer) < 0 ? 0 : 1;
+        return branches[direction].lookupRacer(r);
     }
-
 
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
