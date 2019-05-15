@@ -57,6 +57,18 @@ public class Participations1 {
         }
         return s;
     }
+
+    public String toString(String x, int y) {
+        String s = "";
+        MyParticipationNode node = first;
+        while (node != null) {
+            if (node.part.getRacer().compareTo(x) < 0 && node.part.getBibnumber() <= y) {
+                s += node.part + "\n";
+            }
+            node = node.next;
+        }
+        return s;
+    }
     
     // Print the entries in the order of insertion; each participation
     // is printed in the same format as produced by print() in

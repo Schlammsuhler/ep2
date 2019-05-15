@@ -63,10 +63,11 @@ public class Participations3 {
     // produced by toString().
     @Override
     public String toString() {
-        // TODO: Implement this method.  Add toString() methods in
-        //  related classes as appropriate; observe the restrictions
-        //  of PartTreeNodable and the classes that implement it.
         return root.toString();
+    }
+
+    public String toString(String x, int y) {
+        return root.toString(x, y);
     }
 
     // Fragen:
@@ -91,8 +92,12 @@ public class Participations3 {
 //        p.print();
         System.out.print(p);
 
+
         System.out.println("--lookup--");
         System.out.println(p.lookupRacer("Herbert"));
         System.out.println(p.lookupRacer("Franz"));
+
+        System.out.println("--adhoc4--");
+        System.out.println(p.toString("Herbert", 3));
     }
 }

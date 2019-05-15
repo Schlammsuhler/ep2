@@ -25,6 +25,10 @@ public class PartTreeNull implements PartTreeNodable {
         return "";
     }
 
+    public String toString(String x, int y) {
+        return "";
+    }
+
     @Override
     public void print() {
     }

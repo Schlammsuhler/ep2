@@ -35,6 +35,10 @@ public class PartTreeBinary implements PartTreeNodable {
         return "" + branches[0] + parts + branches[1];
     }
 
+    public String toString(String x, int y) {
+        return branches[0].toString(x, y) + parts.toString(x, y) + branches[1].toString(x, y);
+    }
+
     @Override
     public void print() {
         branches[0].print();
