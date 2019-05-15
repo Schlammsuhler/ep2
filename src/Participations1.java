@@ -7,6 +7,8 @@ assignment.  It is recommended to solve Assignment 3.1, 3.2 and 3.3
 // use classes from the Collections Framework (e.g. LinkedList)
 // <https://docs.oracle.com/javase/8/docs/technotes/guides/collections/overview.html>.
 
+import java.util.Stack;
+
 public class Participations1 {
 
     private class MyParticipationNode {
@@ -134,17 +136,21 @@ public class Participations1 {
     // Insert p immediately after the last entry in 'this' where race is equal to r.
     // If there is no such entry, insert p before the first entry.
     public void addAfter(String r, Participation p) {
+        MyParticipationNode last = null;
         MyParticipationNode newNode = new MyParticipationNode(p);
         MyParticipationNode node = first;
-        while (node != null && !node.part.getRace().equals(r)) {
+        while (node != null) {
+            if (node.part.getRace().equals(r)) {
+                last = node;
+            }
             node = node.next;
         }
-        if (node == null) {
+        if (last == null) {
             newNode.next = first;
             first = newNode;
         } else {
-            newNode.next = node.next;
-            node.next = newNode;
+            newNode.next = last.next;
+            last.next = newNode;
         }
     }
 
