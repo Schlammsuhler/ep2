@@ -4,7 +4,7 @@ assignment.  It is recommended to solve Assignment 2.3 and 2.4
 */
 // Objects of class 'Participations' contain participations from
 // several races.  The implementation uses an array.
-public class Participations {
+public class Participations implements PartIterable {
 
     // Assignment 2.3
 
@@ -100,7 +100,9 @@ public class Participations {
         }
     }
 
-
+    public PartIterator iterator() {
+        return new ParticipationsIter(participations, current);
+    }
 
     private int getSize() {
         return current;
@@ -137,5 +139,10 @@ public class Participations {
         System.out.println("\n----");
         Participations adHoc = new Participations(p, 2, "race2");
         adHoc.print();
+
+        System.out.println("\n--iterable--");
+        for (Participation i: p) {
+            System.out.println("- " + i);
+        }
     }
 }
