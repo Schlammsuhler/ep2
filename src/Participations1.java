@@ -7,10 +7,9 @@ assignment.  It is recommended to solve Assignment 3.1, 3.2 and 3.3
 // use classes from the Collections Framework (e.g. LinkedList)
 // <https://docs.oracle.com/javase/8/docs/technotes/guides/collections/overview.html>.
 
-import java.util.Stack;
+import java.util.Collection;
 
-public class Participations1 {
-
+public class Participations1 implements PartIterable {
     private class MyParticipationNode {
         Participation part;
         MyParticipationNode next;
@@ -24,6 +23,7 @@ public class Participations1 {
 
     // Introduce (private) object variables and classes as needed.
     private MyParticipationNode first;
+    private int size = 0;
     // Creates an empty object of this class
     public Participations1(int n) {
         this();
@@ -35,6 +35,7 @@ public class Participations1 {
 
     // Adds p to 'this'.
     public void add(Participation p) {
+        size++;
         MyParticipationNode newNode = new MyParticipationNode(p);
         if (first == null) {
             first = newNode;
@@ -211,6 +212,17 @@ public class Participations1 {
             node = node.next;
         }
     }
+
+    public PartIterator iterator () {
+        Participation[] parts = new Participation[size];
+        MyParticipationNode node = first;
+        for (int i = 0; i < size; i++, node = node.next) {
+            parts[i] = node.part;
+        }
+        return new ParticipationsIter(parts, size);
+    }
+
+
 
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.

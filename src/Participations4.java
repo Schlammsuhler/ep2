@@ -1,4 +1,4 @@
-public class Participations4 {
+public class Participations4 implements PartIterable {
     // Objects of class 'Participations3' contain participations from
     // several races.  The implementation uses a hash table as follows:
     //   - the tuple ('racer','race') is the key (i.e., what the 'equals'
@@ -63,6 +63,10 @@ public class Participations4 {
         return table[position(p)].lookupRacer(p);
     }
 
+    public PartIterator iterator () {
+        return new Participations4Iter(table);
+    }
+
     // Fragen:
 
     // 1) Wenn in so eine Hash-Tabelle mit n 'Participations1'-Listen
@@ -100,5 +104,10 @@ public class Participations4 {
         p.print();
         Participation racer = p.lookupRacer(new Participation("race4", "Franz", 0));
         System.out.println(racer);
+
+        System.out.println("\n--iterable--");
+        for (Participation i: p) {
+            System.out.println("- " + i);
+        }
     }
 }
