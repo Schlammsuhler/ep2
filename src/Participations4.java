@@ -15,16 +15,23 @@ public class Participations4 {
 
     // Assignment 5.2
 
-    // TODO: Introduce (private) object variables, methods and classes as needed.
+    Participations1[] table;
 
     // Creates an empty hash table with room for n 'Participation1' objects
     public Participations4(int n) {
-        // TODO: implement this constructor
+        table = new Participations1[n];
     }
 
     // Adds p to 'this'.
     public void add(Participation p) {
-        // TODO: Implement this method
+        if (table[position(p)] == null) {
+            table[position(p)] = new Participations1();
+        }
+        table[position(p)].add(p);
+    }
+
+    private int position(Participation p) {
+        return p.hashCode() % table.length;
     }
     
     // returns a string that contains the participations in arbitrary
@@ -32,21 +39,28 @@ public class Participations4 {
     // Participation, followed by a newline.
     @Override
     public String toString() {
-        // TODO: Implement this method.
-        return "";
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                s.append(table[i]);
+            }
+        }
+        return s.toString();
     }
 
     // Print the participations in the format produced by 'toString()'.
     public void print() {
-        // TODO: Implement this method
+        System.out.println(this);
     }
 
     // Returns the first participation (the one that was inserted
     // earliest) in 'this' that equals() 'p'.  If there is no such
     // participation, return null.
     public Participation lookupRacer(Participation p) {
-        // TODO: Implement this method
-        return null;
+        if (table[position(p)] == null) {
+            return null;
+        }
+        return table[position(p)].lookupRacer(p);
     }
 
     // Fragen:
@@ -76,6 +90,15 @@ public class Participations4 {
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
     public static void main(String[] args) {
-        // TODO: write your own test cases here if necessary.
+        Participations4 p = new Participations4(10);
+        p.add(new Participation("race1", "Herbert", 1));
+        p.add(new Participation("race2", "Franz", 2));
+        p.add(new Participation("race2", "Herbert", 3));
+        p.add(new Participation("race4", "Franz", 4));
+        p.add(new Participation("race4", "Franz", 5));
+
+        p.print();
+        Participation racer = p.lookupRacer(new Participation("race4", "Franz", 0));
+        System.out.println(racer);
     }
 }

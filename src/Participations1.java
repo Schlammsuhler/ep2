@@ -49,13 +49,13 @@ public class Participations1 {
 
     @Override
     public String toString() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         MyParticipationNode node = first;
         while (node != null) {
-            s += node.part + "\n";
+            s.append(node.part + "\n");
             node = node.next;
         }
-        return s;
+        return s.toString();
     }
 
     public String toString(String x, int y) {
@@ -89,6 +89,17 @@ public class Participations1 {
         MyParticipationNode node = first;
         while (node != null) {
             if (node.part.getRacer().equals(r)) {
+                return node.part;
+            }
+            node = node.next;
+        }
+        return null;
+    }
+
+    public Participation lookupRacer(Participation p) {
+        MyParticipationNode node = first;
+        while (node != null) {
+            if (node.part.equals(p)) {
                 return node.part;
             }
             node = node.next;

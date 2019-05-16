@@ -33,6 +33,7 @@ public class Participation {
         System.out.println(test.getRacer());
         System.out.println(test.getBibnumber());
         test.print();
+        System.out.println("hash: " + test.hashCode());
     }
 
     // Returns the 'race' of this participation.
@@ -68,5 +69,27 @@ public class Participation {
     @Override
     public String toString() {
         return bibnumber + " " + racer + " (" + race + ")";
+    }
+
+    // In addition to the standard requirements for equals, a
+    // participation is equal to another object of class Participation if
+    // and only if the 'racer's are equal and the 'race's are equal.
+    public boolean equals(Object o) {
+        if (o == null || o.getClass() != Participation.class) {
+            return false;
+        }
+        Participation p = (Participation) o;
+        return p.race.equals(race) && p.racer.equals(racer);
+    }
+
+    // Computes a hash code for 'this' that satisfies the requirements for
+    // hash codes (see Section 3.1.3 in the Skriptum).
+    public int hashCode() {
+        int h = 0;
+        String s = Participation.class + race  + "/" + racer;
+        for (int i = 0; i < s.length(); i++) {
+            h += s.charAt(i) * 7103 * i;
+        }
+        return h;
     }
 }
