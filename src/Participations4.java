@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Participations4 implements PartIterable {
     // Objects of class 'Participations3' contain participations from
     // several races.  The implementation uses a hash table as follows:
@@ -90,6 +95,48 @@ public class Participations4 implements PartIterable {
     // Typen übernehmen welche Eigenschaften von den übergeordneten
     // Typen, und welche fügen sie hinzu?
 
+    // Returns a StringIterable (see StringIterable.java) that contains
+    // the set of 'race's (i.e., each race occurs only once) of all
+    // Participation entries in 'this' (at the time when copyRaces() is
+    // called).
+    public StringIterable copyRaces() {
+        List<String> races = new ArrayList<>();
+        for (Participation p: this) {
+            String race = p.getRace();
+            if (!races.contains(race)) {
+                races.add(race);
+            }
+        }
+        return new MyStringIterable(races);
+    }
+
+    // As in copyRaces(), but selects only those races where the racer equals 'r'.
+    public StringIterable copyRaces(String r) {
+        List<String> races = new ArrayList<>();
+        for (Participation p: this) {
+            String race = p.getRace();
+            if (p.getRacer().equals(r) && !races.contains(race)) {
+                races.add(race);
+            }
+        }
+        return new MyStringIterable(races);
+    }
+
+    // Returns a StringIterable that contains the set of 'race's of all
+    // Participation entries in 'this'.  Iterating through the
+    // StringIterable enumerates all the 'race's in 'this' at the time
+    // when the iterator is created.  It is allowed to enumerate none,
+    // some, or all of the new races that are added between the creation
+    // of the iterator and its exhaustion (i.e., hasNext() returns false).
+    public StringIterable viewRaces() {
+        return new MyRaceIterable(this);
+    }
+
+    // As in viewRaces(), but selects only those races where the racer equals 'r'.
+    public StringIterable viewRaces(String r) {
+        return new MyRaceIterable(this, r);
+    }
+
 
     // This method is only for testing.
     // Alternatively, you can put the tests in additional classes.
@@ -109,5 +156,87 @@ public class Participations4 implements PartIterable {
         for (Participation i: p) {
             System.out.println("- " + i);
         }
+
+        System.out.println("\n--StringIterable--");
+        for (String i: p.copyRaces()) {
+            System.out.println(i);
+        }
+
+        System.out.println("\n--find racers--");
+        for (String i: p.copyRaces("Franz")) {
+            System.out.println(i);
+        }
+
+        System.out.println("\n--viewRaces--");
+        StringIterable races = p.viewRaces();
+        p.add(new Participation("race5", "Herbert", 6));
+        for (String i: races) {
+            System.out.println(i);
+        }
+        System.out.println("\n--viewRaces, filtered--");
+        races = p.viewRaces("Herbert");
+        for (String i: races) {
+            System.out.println(i);
+        }
+    }
+
+    private class MyStringIterable implements StringIterable {
+        Iterable<String> strings;
+
+        public MyStringIterable(Iterable<String> strings) {
+            this.strings = strings;
+        }
+
+        @Override
+        public StringIterator iterator() {
+            return new MyStringIterator(strings.iterator());
+        }
+    }
+
+    private class MyRaceIterable implements StringIterable {
+        PartIterable parts;
+        String racer;
+
+        public MyRaceIterable(PartIterable parts) {
+            this.parts = parts;
+        }
+
+        public MyRaceIterable(PartIterable parts, String racer) {
+            this(parts);
+            this.racer = racer;
+        }
+
+        @Override
+        public StringIterator iterator() {
+            List<String> races = new ArrayList<>();
+            for (Participation p: parts) {
+                if (racer == null || racer.equals(p.getRacer())) {
+                    if (!races.contains(p.getRace())) {
+                        races.add(p.getRace());
+                    }
+                }
+            }
+            return new MyStringIterator(races.iterator());
+        }
+    }
+
+    private class MyStringIterator implements StringIterator {
+        Iterator<String> iterator;
+
+        public MyStringIterator(Iterator<String> iterator) {
+            this.iterator = iterator;
+        }
+
+        @Override
+        public String next() {
+            return iterator.next();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return iterator.hasNext();
+        }
     }
 }
+
+
